@@ -7,7 +7,25 @@ This repo is the week6 assignment of the "Hand Held: Creative Tools for Phones" 
 Here's the [Live Demo on Glitch](https://cuinjune-simple-pen.glitch.me/).
 
 
-I tried to use [Catmull-Rom splines](https://en.wikipedia.org/wiki/Centripetal_Catmull%E2%80%93Rom_spline) with the varying thicknesses but it didn't work as expected so I got rid of it.
+The following function was used for drawing lines in varying thickness:
+
+```
+function drawLine(x1, y1, x2, y2, r1, r2) {
+    // calculate direction vector of point 1 and 2
+    const directionVectorX = x2 - x1;
+    const directionVectorY = y2 - y1;
+    // calculate angle of perpendicular vector
+    const perpendicularVectorAngle = Math.atan2(directionVectorY, directionVectorX) + Math.PI / 2;
+    // construct shape
+    const path = new Path2D();
+    path.arc(x1, y1, r1, perpendicularVectorAngle, perpendicularVectorAngle + Math.PI);
+    path.arc(x2, y2, r2, perpendicularVectorAngle + Math.PI, perpendicularVectorAngle);
+    path.closePath();
+    return path;
+  }
+```
+
+I tried to use [Catmull-Rom splines](https://en.wikipedia.org/wiki/Centripetal_Catmull%E2%80%93Rom_spline) with the varying thickness but it didn't work as expected so I got rid of it. I will probably try again later if I have more time.
 
 ```
 function curveTo(to, curveResolution) {
